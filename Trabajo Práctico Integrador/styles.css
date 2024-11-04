@@ -1,22 +1,126 @@
+/* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
+    color: #f8f9fa;
+    background-color: #1c1c1e;
 }
 
-header,
-nav,
-section,
-footer {
-    margin: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
+/* Navbar Styling */
+.navbar {
+    background-color: #000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
+.nav-link:hover {
+    color: #66b2ff !important;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 10px;
+/* Hero Section Styling */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1920x600/0d6efd/ffffff?text=Fútbol+Team+Management');
+    background-size: cover;
+    background-position: center;
+    min-height: 60vh;
+    color: #fff;
+    padding: 100px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero .btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Section Styling */
+.section-bg {
+    background: linear-gradient(135deg, #333333, #1c1c1e);
+    color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+section p {
+    color: #ddd;
+    font-size: 1rem;
+}
+
+/* Botón de sección */
+.btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #000;
+    color: #0d6efd;
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    section h2 {
+        font-size: 1.75rem;
+    }
+}
+
+table {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 5px;
+    text-align: left;
+}
+
+table.names tr:nth-child(even) {
+    background-color: #eee;
+}
+
+table.names tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+table.names th {
+    background-color: black;
+    color: white
 }
