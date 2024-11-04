@@ -209,3 +209,177 @@ function clearForm() {
     document.querySelector('#addPlayerForm form').reset();
     editingPlayerNumber = null;
 }
+
+const currentYear = new Date().getFullYear();
+let displayedYear = new Date().getFullYear();
+let selectedDate = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+    renderCalendar(displayedYear);
+    loadMatchesFromStorage();
+
+    document.getElementById("prevYear").addEventListener("click", function () {
+        if (displayedYear > 2023) {
+            displayedYear--;
+            renderCalendar(displayedYear);
+        }
+    });
+
+    document.getElementById("nextYear").addEventListener("click", function () {
+        if (displayedYear < 2030) {
+            displayedYear++;
+            renderCalendar(displayedYear);
+        }
+    });
+
+    // Handle match form submission
+    document.getElementById("addMatchForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const opponentTeam = document.getElementById("opponentTeam").value;
+        const division = document.getElementById("division").value;
+        const team1Score = parseInt(document.getElementById("team1Score").textContent);
+        const team2Score = parseInt(document.getElementById("team2Score").textContent);
+
+        if (selectedDate) {
+            saveMatchToStorage(selectedDate, { opponentTeam, division, team1Score, team2Score });
+            renderCalendar(displayedYear); // Re-render to update highlighted dates
+            document.getElementById("matchForm").style.display = "none";
+        }
+    });
+
+    // Handle form cancellation
+    document.getElementById("cancelMatchForm").addEventListener("click", function () {
+        document.getElementById("matchForm").style.display = "none";
+    });
+
+    // Handle match deletion
+    document.getElementById("deleteMatch").addEventListener("click", function () {
+        if (selectedDate) {
+            deleteMatchFromStorage(selectedDate);
+            renderCalendar(displayedYear); // Re-render to update highlighted dates
+            document.getElementById("matchForm").style.display = "none";
+        }
+    });
+
+    // Score adjustment buttons
+    document.getElementById("team1Plus").addEventListener("click", () => adjustScore("team1Score", 1));
+    document.getElementById("team1Minus").addEventListener("click", () => adjustScore("team1Score", -1));
+    document.getElementById("team2Plus").addEventListener("click", () => adjustScore("team2Score", 1));
+    document.getElementById("team2Minus").addEventListener("click", () => adjustScore("team2Score", -1));
+});
+
+function renderCalendar(year) {
+    document.getElementById("yearDisplay").textContent = year;
+    const monthsContainer = document.getElementById("monthsContainer");
+    monthsContainer.innerHTML = ""; // Clear previous months
+
+    const monthNames = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    monthNames.forEach((month, index) => {
+        const monthDiv = document.createElement("div");
+        monthDiv.className = "month";
+        const monthName = document.createElement("div");
+        monthName.className = "month-name";
+        monthName.textContent = month;
+
+        const daysDiv = document.createElement("div");
+        daysDiv.className = "days";
+
+        // Get number of days in the current month
+        const daysInMonth = new Date(year, index + 1, 0).getDate();
+        const firstDayOfMonth = new Date(year, index, 1).getDay();
+
+        const startOffset = (firstDayOfMonth + 6) % 7; // Adjust to start from Monday
+        for (let i = 0; i < startOffset; i++) {
+            const emptyDiv = document.createElement("div");
+            emptyDiv.className = "day empty";
+            daysDiv.appendChild(emptyDiv);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayDiv = document.createElement("div");
+            dayDiv.className = "day";
+            dayDiv.textContent = day;
+
+            const formattedDate = `${year}-${String(index + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            if (checkMatchExists(formattedDate)) {
+                dayDiv.classList.add("has-match");
+            }
+
+            dayDiv.addEventListener("click", function () {
+                openMatchForm(formattedDate);
+            });
+
+            daysDiv.appendChild(dayDiv);
+        }
+
+        monthDiv.appendChild(monthName);
+        monthDiv.appendChild(daysDiv);
+        monthsContainer.appendChild(monthDiv);
+    });
+}
+
+function openMatchForm(date) {
+    selectedDate = date;
+    const matches = JSON.parse(localStorage.getItem("matches")) || {};
+    document.getElementById("team1Score").textContent = "0";
+    document.getElementById("team2Score").textContent = "0";
+
+    if (matches[date]) {
+        document.getElementById("matchDate").value = date;
+        document.getElementById("opponentTeam").value = matches[date].opponentTeam;
+        document.getElementById("division").value = matches[date].division;
+        document.getElementById("team1Score").textContent = matches[date].team1Score || "0";
+        document.getElementById("team2Score").textContent = matches[date].team2Score || "0";
+        document.getElementById("team2Name").textContent = matches[date].opponentTeam;
+    } else {
+        document.getElementById("matchDate").value = date;
+        document.getElementById("opponentTeam").value = "";
+        document.getElementById("division").value = "A";
+        document.getElementById("team2Name").textContent = "NombreEquipoRival";
+    }
+
+    document.getElementById("matchForm").style.display = "block";
+}
+
+function adjustScore(teamId, delta) {
+    const scoreElement = document.getElementById(teamId);
+    let currentScore = parseInt(scoreElement.textContent) || 0; // Ensure it starts at 0 if NaN
+    currentScore = Math.max(0, currentScore + delta);
+    scoreElement.textContent = currentScore;
+}
+
+function saveMatchToStorage(date, matchData) {
+    const matches = JSON.parse(localStorage.getItem("matches")) || {};
+    matches[date] = matchData;
+    localStorage.setItem("matches", JSON.stringify(matches));
+}
+
+function deleteMatchFromStorage(date) {
+    const matches = JSON.parse(localStorage.getItem("matches")) || {};
+    if (matches[date]) {
+        delete matches[date];
+        localStorage.setItem("matches", JSON.stringify(matches));
+    }
+}
+
+function checkMatchExists(date) {
+    const matches = JSON.parse(localStorage.getItem("matches")) || {};
+    return matches.hasOwnProperty(date);
+}
+
+function loadMatchesFromStorage() {
+    const matches = JSON.parse(localStorage.getItem("matches")) || {};
+    Object.keys(matches).forEach(date => {
+        if (new Date(date).getFullYear() === displayedYear) {
+            document.querySelectorAll(".day").forEach(dayDiv => {
+                if (dayDiv.textContent === new Date(date).getDate().toString()) {
+                    dayDiv.classList.add("has-match");
+                }
+            });
+        }
+    });
+}

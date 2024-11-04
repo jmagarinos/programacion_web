@@ -118,6 +118,64 @@
                 </tr>
             </table>
         </section>
+
+        <section id="calendario" class="text-center mb-5 p-5 rounded shadow section-bg">
+            <h2 class="text-primary"><i class="fas fa-calendar-alt"></i> Calendario del Equipo</h2>
+            <p>Explora cada fecha entre 2020 y 2030.</p>
+            <div id="calendar">
+                <div class="year-selector">
+                    <button id="prevYear" class="btn btn-outline-primary btn-sm">Anterior</button>
+                    <span id="yearDisplay">2020</span>
+                    <button id="nextYear" class="btn btn-outline-primary btn-sm">Siguiente</button>
+                </div>
+                <div id="monthsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Match Entry Form -->
+        <div id="matchForm" style="display: none;" class="mt-4 p-4 rounded shadow section-bg">
+            <h3 class="text-primary">Agregar Partido</h3>
+            <form id="addMatchForm">
+                <div class="mb-3">
+                    <label for="matchDate" class="form-label">Fecha del Partido</label>
+                    <input type="text" class="form-control" id="matchDate" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="opponentTeam" class="form-label">Nombre del equipo rival</label>
+                    <input type="text" class="form-control" id="opponentTeam" required>
+                </div>
+                <div class="mb-3">
+                    <label for="division" class="form-label">División</label>
+                    <select class="form-control" id="division" required>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                </div>
+
+                <!-- Result Section -->
+                <div class="mb-3">
+                    <label class="form-label">Resultado</label>
+                    <div class="d-flex align-items-center">
+                        <span id="team1Name">Pasala F.C.</span>
+                        <button type="button" id="team1Minus" class="btn btn-outline-secondary btn-sm mx-2">-</button>
+                        <span id="team1Score">0</span>
+                        <button type="button" id="team1Plus" class="btn btn-outline-secondary btn-sm mx-2">+</button>
+                        <span class="mx-3">-</span>
+                        <button type="button" id="team2Minus" class="btn btn-outline-secondary btn-sm mx-2">-</button>
+                        <span id="team2Score">0</span>
+                        <button type="button" id="team2Plus" class="btn btn-outline-secondary btn-sm mx-2">+</button>
+                        <span id="team2Name" class="ms-2">NombreEquipoRival</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Guardar Partido</button>
+                <button type="button" id="cancelMatchForm" class="btn btn-secondary ms-2">Cancelar</button>
+                <button type="button" id="deleteMatch" class="btn btn-danger ms-2">Eliminar Partido</button>
+            </form>
+        </div>
+
     </main>
 
     <!-- Footer -->

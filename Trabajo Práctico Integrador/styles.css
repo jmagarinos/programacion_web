@@ -124,3 +124,70 @@ table.names th {
     background-color: black;
     color: white
 }
+
+#calendar {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.year-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.year-selector span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d6efd;
+    margin: 0 15px;
+}
+
+.month {
+    display: inline-block;
+    width: calc(25% - 10px);
+    margin: 5px;
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 10px;
+    color: #f8f9fa;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.month-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #66b2ff;
+    margin-bottom: 10px;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.day {
+    width: 30px;
+    height: 30px;
+    background-color: #444444;
+    border-radius: 5px;
+    color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.day:hover {
+    background-color: #0d6efd;
+    cursor: pointer;
+}
+
+.day.has-match {
+    background-color: #66b2ff;
+    color: #fff;
+    font-weight: bold;
+}
