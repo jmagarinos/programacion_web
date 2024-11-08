@@ -189,17 +189,20 @@ function loadPlayers() {
     });
 }
 
-// Function to delete player from localStorage and table
+// Function to delete player from localStorage and table with confirmation
 function deletePlayer(playerNumber) {
-    let players = JSON.parse(localStorage.getItem('players')) || [];
-    players = players.filter(player => player.number !== playerNumber);
-    localStorage.setItem('players', JSON.stringify(players));
+    const confirmDelete = confirm("¿Estás seguro que quieres eliminar este jugador?");
+    if (confirmDelete) {
+        let players = JSON.parse(localStorage.getItem('players')) || [];
+        players = players.filter(player => player.number !== playerNumber);
+        localStorage.setItem('players', JSON.stringify(players));
 
-    const table = document.querySelector('.names');
-    for (let i = 1; i < table.rows.length; i++) {
-        if (table.rows[i].cells[0].textContent === playerNumber) {
-            table.deleteRow(i);
-            break;
+        const table = document.querySelector('.names');
+        for (let i = 1; i < table.rows.length; i++) {
+            if (table.rows[i].cells[0].textContent === playerNumber) {
+                table.deleteRow(i);
+                break;
+            }
         }
     }
 }
@@ -209,6 +212,7 @@ function clearForm() {
     document.querySelector('#addPlayerForm form').reset();
     editingPlayerNumber = null;
 }
+
 
 //--------------------------------------------------------------------------------------------//
 
