@@ -211,7 +211,7 @@ function clearForm() {
 }
 
 const currentYear = new Date().getFullYear();
-let displayedYear = new Date().getFullYear();
+let displayedYear = new Date().getFullYear(); // Set to current year automatically
 let selectedDate = null;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -375,11 +375,15 @@ function loadMatchesFromStorage() {
     const matches = JSON.parse(localStorage.getItem("matches")) || {};
     Object.keys(matches).forEach(date => {
         if (new Date(date).getFullYear() === displayedYear) {
-            document.querySelectorAll(".day").forEach(dayDiv => {
-                if (dayDiv.textContent === new Date(date).getDate().toString()) {
+            const [year, month, day] = date.split('-');
+            const formattedDay = String(parseInt(day)); // Remove leading zero for comparison
+
+            document.querySelectorAll(`.month:nth-child(${parseInt(month)}) .day`).forEach(dayDiv => {
+                if (dayDiv.textContent === formattedDay) {
                     dayDiv.classList.add("has-match");
                 }
             });
         }
     });
 }
+
