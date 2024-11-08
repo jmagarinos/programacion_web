@@ -210,6 +210,10 @@ function clearForm() {
     editingPlayerNumber = null;
 }
 
+//--------------------------------------------------------------------------------------------//
+
+// Calendar functions
+
 const currentYear = new Date().getFullYear();
 let displayedYear = new Date().getFullYear(); // Set to current year automatically
 let selectedDate = null;
@@ -252,12 +256,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("matchForm").style.display = "none";
     });
 
-    // Handle match deletion
+    // Handle match deletion with confirmation
     document.getElementById("deleteMatch").addEventListener("click", function () {
         if (selectedDate) {
-            deleteMatchFromStorage(selectedDate);
-            renderCalendar(displayedYear); // Re-render to update highlighted dates
-            document.getElementById("matchForm").style.display = "none";
+            const confirmDelete = confirm("¿Estás seguro que quieres borrar este partido del calendario?");
+            if (confirmDelete) {
+                deleteMatchFromStorage(selectedDate);
+                renderCalendar(displayedYear); // Re-render to update highlighted dates
+                document.getElementById("matchForm").style.display = "none";
+            }
         }
     });
 
@@ -386,4 +393,5 @@ function loadMatchesFromStorage() {
         }
     });
 }
+
 
