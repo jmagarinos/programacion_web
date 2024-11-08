@@ -1,4 +1,4 @@
-/* Estilos Generales */
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     color: #f8f9fa;
@@ -81,9 +81,7 @@ section p {
 }
 
 /* Tabla de Jugadores */
-table.names {
-    width: 100%;
-    border-collapse: collapse;
+.table-responsive {
     margin-top: 20px;
 }
 
@@ -97,14 +95,6 @@ table.names td {
 table.names th {
     background-color: black;
     color: white;
-}
-
-table.names tr:nth-child(even) {
-    background-color: #eee;
-}
-
-table.names tr:nth-child(odd) {
-    background-color: #fff;
 }
 
 /* Calendario */
@@ -128,6 +118,7 @@ table.names tr:nth-child(odd) {
     margin: 0 15px;
 }
 
+/* Contenedor de cada mes con altura fija y desplazamiento */
 .month {
     display: inline-block;
     width: calc(25% - 10px);
@@ -137,6 +128,10 @@ table.names tr:nth-child(odd) {
     padding: 10px;
     color: #f8f9fa;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    height: 250px;
+    /* Altura fija para cada mes */
+    overflow-y: auto;
+    /* Habilita el desplazamiento si hay más días */
 }
 
 .month-name {
@@ -144,6 +139,7 @@ table.names tr:nth-child(odd) {
     font-weight: bold;
     color: #66b2ff;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .days {
@@ -189,87 +185,24 @@ table.names tr:nth-child(odd) {
         font-size: 1.75rem;
     }
 
-    /* Ajustes para la Tabla de Jugadores en Pantallas Pequeñas */
-    table.names,
-    table.names thead,
-    table.names tbody,
-    table.names th,
-    table.names td,
-    table.names tr {
-        display: block;
-    }
-
-    table.names tr {
-        margin-bottom: 15px;
-        border-bottom: 2px solid #333333;
-    }
-
-    table.names td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-    }
-
-    table.names td::before {
-        position: absolute;
-        left: 10px;
-        width: 45%;
-        white-space: nowrap;
-        font-weight: bold;
-    }
-
-    table.names td:nth-of-type(1)::before {
-        content: "Numero";
-    }
-
-    table.names td:nth-of-type(2)::before {
-        content: "Nombre completo";
-    }
-
-    table.names td:nth-of-type(3)::before {
-        content: "Apodo";
-    }
-
-    table.names td:nth-of-type(4)::before {
-        content: "Posicion";
-    }
-
-    table.names td:nth-of-type(5)::before {
-        content: "Edad";
-    }
-
-    table.names td:nth-of-type(6)::before {
-        content: "Partidos jugados";
-    }
-
-    table.names td:nth-of-type(7)::before {
-        content: "Goles";
-    }
-
-    table.names td:nth-of-type(8)::before {
-        content: "Acciones";
-    }
-
     /* Ajustes para el Calendario en Pantallas Pequeñas */
     .month {
         width: 100%;
         padding: 5px;
-        /* Reduce padding */
+        height: 300px;
+        /* Altura ajustada para pantallas pequeñas */
     }
 
     .days {
         grid-template-columns: repeat(7, minmax(20px, 1fr));
         gap: 1px;
-        /* Reduce gap between days */
     }
 
     .day {
         width: auto;
         height: auto;
         font-size: 0.8rem;
-        /* Reduce font size for days */
         padding: 5px;
-        /* Reduce padding for each day */
     }
 
     .year-selector span {

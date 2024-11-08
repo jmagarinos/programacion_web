@@ -104,21 +104,28 @@
             </div>
 
             <!-- Player Table -->
-            <table class="names mt-4"
-                style="width: 100%; border: 1px solid black; background-color: white; color: black;">
-                <tr>
-                    <th>Numero</th>
-                    <th>Nombre completo</th>
-                    <th>Apodo</th>
-                    <th>Posicion</th>
-                    <th>Edad</th>
-                    <th>Partidos jugados</th>
-                    <th>Goles</th>
-                    <th>Acciones</th>
-                </tr>
-            </table>
+            <div class="table-responsive mt-4">
+                <table class="names table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Numero</th>
+                            <th>Nombre completo</th>
+                            <th>Apodo</th>
+                            <th>Posicion</th>
+                            <th>Edad</th>
+                            <th>Partidos jugados</th>
+                            <th>Goles</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se insertan las filas dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
         </section>
 
+        <!-- Calendario Section -->
         <section id="calendario" class="text-center mb-5 p-5 rounded shadow section-bg">
             <h2 class="text-primary"><i class="fas fa-calendar-alt"></i> Calendario del Equipo</h2>
             <p>Explora cada fecha entre 2020 y 2030.</p>
