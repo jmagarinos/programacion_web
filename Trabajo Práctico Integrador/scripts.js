@@ -26,6 +26,12 @@ document.querySelector('#addPlayerForm form').addEventListener('submit', functio
     const playerMatches = document.getElementById('playerMatches').value;
     const playerGoals = document.getElementById('playerGoals').value;
 
+    // Check if player number is unique
+    if (!isUniquePlayerNumber(playerNumber)) {
+        alert("El número del jugador ya existe. Por favor, elige un número único.");
+        return;
+    }
+
     const player = {
         number: playerNumber,
         name: playerName,
@@ -50,6 +56,13 @@ document.querySelector('#addPlayerForm form').addEventListener('submit', functio
     document.getElementById('addPlayerForm').style.display = 'none';
     editingPlayerNumber = null; // Reset editing status
 });
+
+// Function to check if player number is unique
+function isUniquePlayerNumber(playerNumber) {
+    const players = JSON.parse(localStorage.getItem('players')) || [];
+    if (editingPlayerNumber === playerNumber) return true; // Allow if editing same player
+    return !players.some(player => player.number === playerNumber);
+}
 
 // Function to add player to the table
 function addPlayerToTable(player) {
@@ -212,6 +225,7 @@ function clearForm() {
     document.querySelector('#addPlayerForm form').reset();
     editingPlayerNumber = null;
 }
+
 
 
 //--------------------------------------------------------------------------------------------//
